@@ -1,0 +1,36 @@
+body {
+    background: #e6d8b5;
+}
+
+.header {
+    background: #5b7fa6;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+
+.left-box, .right-box {
+    width: 200px;
+    height: 200px;
+    background: #5b7fa6;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bottom-cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.bottom-cards div {
+    background: #5b7fa6;
+    padding: 20px;
+}

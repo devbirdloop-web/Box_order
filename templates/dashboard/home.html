@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>📦 BoxApp</h2>
+    <a href="#">Dashboard</a>
+    <a href="#">Order Box</a>
+    <a href="#">My Orders</a>
+    <a href="#">Track Order</a>
+    <a href="#">Contact</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="main">
+
+    <!-- TOP NAV -->
+    <div class="topbar">
+        <div>Welcome, {{ request.user.username }}</div>
+        <a href="/accounts/logout/" class="logout-btn">Logout</a>
+    </div>
+
+    <!-- CARDS -->
+    <div class="cards">
+
+        <div class="card">
+            <h3>Total Orders</h3>
+            <p>12</p>
+        </div>
+
+        <div class="card">
+            <h3>Pending</h3>
+            <p>3</p>
+        </div>
+
+        <div class="card">
+            <h3>Delivered</h3>
+            <p>9</p>
+        </div>
+
+    </div>
+
+    <!-- ACTION SECTION -->
+    <div class="actions">
+        <div class="action-card">🛒 Order Box</div>
+        <div class="action-card">📦 My Orders</div>
+        <div class="action-card">📍 Track</div>
+        <div class="action-card">☎ Contact</div>
+    </div>
+
+</div>
+<script>
+    // Prevent forward/back cache issue
+    window.onpageshow = function(event) {
+        if (event.persisted) {
+            window.location.reload();
+        }
+    };
+
+    // Force reload when coming from history
+    if (performance.navigation.type === 2) {
+        location.reload(true);
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+
+
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<h2>Available Boxes</h2>
+
+{% for box in boxes %}
+    <div>
+        <h3>{{ box.name }}</h3>
+        <p>{{ box.size }}</p>
+        <p>{{ box.price }}</p>
+    </div>
+{% endfor %}
