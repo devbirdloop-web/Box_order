@@ -26,7 +26,7 @@
                 </a>
 
                 {% if request.user.role == 'admin' %}
-                    <a href="{% url 'admin:index' %}" class="nav-link">
+                    <a href="{% url 'manage_products' %}" class="nav-link">
                         <span>⚙️</span>
                         <span>Manage Products</span>
                     </a>

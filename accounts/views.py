@@ -83,7 +83,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return redirect("landing")
+    return redirect("login")
 
 
 from orders.models import Order

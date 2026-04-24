@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">Manage Products</h1>
+        <p class="dashboard-subtitle">Add, update, activate, or delete box products.</p>
+    </div>
+
+    <a href="{% url 'add_product' %}" class="btn">+ Add Product</a>
+</div>
+
+<div class="product-table-card">
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Box Name</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Quality</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for box in boxes %}
+            <tr>
+                <td>
+                    {% if box.image %}
+                        <img src="{{ box.image.url }}" class="table-img" alt="{{ box.name }}">
+                    {% else %}
+                        <span class="no-img">📦</span>
+                    {% endif %}
+                </td>
+                <td>{{ box.name }}</td>
+                <td>₹{{ box.price }}</td>
+                <td>{{ box.stock }}</td>
+                <td>{{ box.get_quality_display }}</td>
+                <td>
+                    {% if box.is_active %}
+                        <span class="status active-status">Active</span>
+                    {% else %}
+                        <span class="status inactive-status">Inactive</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'edit_product' box.id %}" class="small-btn edit-btn">Edit</a>
+                    <a href="{% url 'delete_product' box.id %}" class="small-btn delete-btn">Delete</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No products added yet.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

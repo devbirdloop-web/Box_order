@@ -11,7 +11,7 @@
 <body class="login-page">
 
 <header class="header">
-    <div class="logo">📦BOX ORDER MANAGEMENT SYSTEM</div>
+    <div class="logo">📦SMART BOX ORDERING SYSTEM</div>
 
     <div class="nav">
         <a href="{% url 'login' %}" class="active">Login</a>
@@ -23,9 +23,8 @@
 
     <!-- LEFT SIDE -->
     <div class="info-panel">
-        <div class="info-badge">Box Order Management</div>
 
-        <h1>Welcome Back 👋</h1>
+        <h1>Welcome </h1>
         <p class="info-text">
             Manage your box orders, track deliveries, and enjoy a smooth ordering experience.
         </p>
@@ -37,12 +36,17 @@
                 products, track orders, and monitor deliveries through a role-based dashboard.
             </p>
 
-            <div class="feature-list">
-                <div class="feature-item">📦 Easy box ordering</div>
-                <div class="feature-item">🛒 Cart and checkout</div>
-                <div class="feature-item">📍 Order tracking</div>
-                <div class="feature-item">⚙️ Admin product control</div>
+            <!-- REPLACED FEATURE BOXES WITH TWO IMAGES -->
+            <div class="image-section">
+
+                <!-- IMAGE 1 -->
+                <img src="{% static 'images/image1.jpg' %}" alt="Box Ordering">
+
+                <!-- IMAGE 2 -->
+                <img src="{% static 'images/image2.jpg' %}" alt="Order Tracking">
+
             </div>
+
         </div>
     </div>
 
@@ -70,7 +74,7 @@
 </div>
 
 <footer class="footer">
-    <p>© 2026 BoxApp | Smart Box Ordering System</p>
+    <p>© 2026 BoxApp | Order your Box</p>
 </footer>
 
 </body>

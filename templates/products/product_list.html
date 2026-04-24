@@ -2,34 +2,53 @@
 
 {% block content %}
 
-<h2>📦 Available Boxes</h2>
-
-<div class="product-grid">
-
-    {% for box in boxes %}
-    <div class="product-card">
-
-        <img src="{{ box.image.url }}" alt="{{ box.name }}">
-
-        <h3>{{ box.name }}</h3>
-
-        <p>{{ box.description|truncatewords:10 }}</p>
-
-        <div class="price">₹{{ box.price }}</div>
-
-        <div class="stock">
-            {% if box.stock > 0 %}
-                In Stock
-            {% else %}
-                Out of Stock
-            {% endif %}
-        </div>
-
-        <a href="/orders/add/{{ box.id }}/" class="btn">Add to Cart</a>
-
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">Order Box</h1>
+        <p class="dashboard-subtitle">Choose from available cardboard boxes uploaded by admin.</p>
     </div>
-    {% endfor %}
-
 </div>
+
+{% if boxes %}
+<div class="product-grid">
+    {% for box in boxes %}
+        <div class="product-card">
+
+            {% if box.image %}
+                <img src="{{ box.image.url }}" alt="{{ box.name }}">
+            {% else %}
+                <div class="product-placeholder">📦</div>
+            {% endif %}
+
+            <h3>{{ box.name }}</h3>
+
+            <p>{{ box.description|truncatewords:18 }}</p>
+
+            <div class="box-meta">
+                <span>{{ box.get_quality_display }}</span>
+                {% if box.length and box.width and box.height %}
+                    <span>{{ box.length }} × {{ box.width }} × {{ box.height }}</span>
+                {% endif %}
+            </div>
+
+            <div class="price">₹{{ box.price }}</div>
+
+            {% if box.stock > 0 %}
+                <div class="stock in-stock">In Stock: {{ box.stock }}</div>
+                <a href="{% url 'add_to_cart' box.id %}" class="btn">Add to Cart</a>
+            {% else %}
+                <div class="stock out-stock">Out of Stock</div>
+                <button class="btn disabled-btn" disabled>Unavailable</button>
+            {% endif %}
+
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+    <div class="empty-state">
+        <h2>No boxes available</h2>
+        <p>Admin has not uploaded any box products yet.</p>
+    </div>
+{% endif %}
 
 {% endblock %}
