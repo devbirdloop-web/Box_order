@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">User Dashboard</h1>
+        <p class="dashboard-subtitle">Track orders, manage your cart, and place new orders.</p>
+    </div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-badge">📦</span>
+        </div>
+        <div class="stat-label">Total Orders</div>
+        <div class="stat-value">{{ total_orders|default:"0" }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-badge pending">⏳</span>
+        </div>
+        <div class="stat-label">Pending Orders</div>
+        <div class="stat-value">{{ pending_orders|default:"0" }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-badge delivered">✅</span>
+        </div>
+        <div class="stat-label">Delivered Orders</div>
+        <div class="stat-value">{{ delivered_orders|default:"0" }}</div>
+    </div>
+</div>
+
+<div class="section-title">Quick Actions</div>
+
+<div class="action-grid">
+    <a href="{% url 'product_list' %}" class="action-card">
+        <div class="action-icon">🛒</div>
+        <div class="action-title">Order Box</div>
+        <div class="action-text">Browse products and place new orders.</div>
+    </a>
+
+    <a href="{% url 'cart' %}" class="action-card">
+        <div class="action-icon">🧺</div>
+        <div class="action-title">My Cart</div>
+        <div class="action-text">Review selected items before checkout.</div>
+    </a>
+
+    <a href="{% url 'my_orders' %}" class="action-card">
+        <div class="action-icon">📜</div>
+        <div class="action-title">My Orders</div>
+        <div class="action-text">Track all your placed orders.</div>
+    </a>
+
+    <a href="#" class="action-card">
+        <div class="action-icon">📍</div>
+        <div class="action-title">Track Order</div>
+        <div class="action-text">Check current delivery status.</div>
+    </a>
+</div>
+
+{% endblock %}

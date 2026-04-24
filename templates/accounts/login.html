@@ -1,25 +1,60 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | BoxApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 </head>
-<body>
+<body class="login-page">
 
-<div class="auth-container">
+<header class="header">
+    <div class="logo">📦BOX ORDER MANAGEMENT SYSTEM</div>
 
+    <div class="nav">
+        <a href="{% url 'login' %}" class="active">Login</a>
+        <a href="{% url 'signup' %}">Signup</a>
+    </div>
+</header>
+
+<div class="main-container">
+
+    <!-- LEFT SIDE -->
+    <div class="info-panel">
+        <div class="info-badge">Box Order Management</div>
+
+        <h1>Welcome Back 👋</h1>
+        <p class="info-text">
+            Manage your box orders, track deliveries, and enjoy a smooth ordering experience.
+        </p>
+
+        <div class="overview-box">
+            <h3>Overview of App</h3>
+            <p>
+                BoxApp helps users place cardboard box orders quickly and lets admins manage
+                products, track orders, and monitor deliveries through a role-based dashboard.
+            </p>
+
+            <div class="feature-list">
+                <div class="feature-item">📦 Easy box ordering</div>
+                <div class="feature-item">🛒 Cart and checkout</div>
+                <div class="feature-item">📍 Order tracking</div>
+                <div class="feature-item">⚙️ Admin product control</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT SIDE -->
     <div class="auth-card">
-        <h2>Welcome Back 👋</h2>
-        <p class="subtitle">Login to your account</p>
+        <h2>Login</h2>
+        <p class="subtitle">Enter your credentials</p>
 
         <form method="POST">
             {% csrf_token %}
-            
             <input type="text" name="username" placeholder="Username" required>
-            
             <input type="password" name="password" placeholder="Password" required>
-
             <button type="submit">Login</button>
         </form>
 
@@ -27,13 +62,16 @@
             <p class="error">{{ error }}</p>
         {% endif %}
 
-        <div class="links">
-            <a href="/accounts/signup/">Create Account</a>
-            <a href="#">Forgot Password?</a>
+        <div class="links single-link">
+            <a href="{% url 'signup' %}">Create Account</a>
         </div>
     </div>
 
 </div>
+
+<footer class="footer">
+    <p>© 2026 BoxApp | Smart Box Ordering System</p>
+</footer>
 
 </body>
 </html>

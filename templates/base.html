@@ -1,21 +1,109 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Purchasing Box</title>
-    <link rel="stylesheet" href="{% load static %}{% static 'css/style.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BoxApp Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
 </head>
 <body>
 
-<!-- Navbar -->
-<nav class="navbar">
-    <h2>🛒 Purchasing Box</h2>
-    <a href="/">Home</a>
-    <a href="/cart/">Cart</a>
-</nav>
+<div class="app-shell">
 
-<div class="container">
-    {% block content %}{% endblock %}
+    <aside class="sidebar">
+        <div class="brand">
+            <span class="brand-icon">📦</span>
+            <span class="brand-text">BoxApp</span>
+        </div>
+
+        <nav class="nav-menu">
+            {% if request.user.is_authenticated %}
+                <a href="{% if request.user.role == 'admin' %}{% url 'admin_dashboard' %}{% else %}{% url 'user_dashboard' %}{% endif %}" class="nav-link">
+                    <span>🏠</span>
+                    <span>Dashboard</span>
+                </a>
+
+                {% if request.user.role == 'admin' %}
+                    <a href="{% url 'admin:index' %}" class="nav-link">
+                        <span>⚙️</span>
+                        <span>Manage Products</span>
+                    </a>
+                    <a href="{% url 'product_list' %}" class="nav-link">
+                        <span>📋</span>
+                        <span>View Products</span>
+                    </a>
+                    <a href="{% url 'my_orders' %}" class="nav-link">
+                        <span>📦</span>
+                        <span>View Orders</span>
+                    </a>
+                {% else %}
+                    <a href="{% url 'product_list' %}" class="nav-link">
+                        <span>🛒</span>
+                        <span>Order Box</span>
+                    </a>
+                    <a href="{% url 'cart' %}" class="nav-link">
+                        <span>🧺</span>
+                        <span>My Cart</span>
+                    </a>
+                    <a href="{% url 'my_orders' %}" class="nav-link">
+                        <span>📜</span>
+                        <span>My Orders</span>
+                    </a>
+                {% endif %}
+
+                <a href="{% url 'logout' %}" class="nav-link">
+                    <span>🚪</span>
+                    <span>Logout</span>
+                </a>
+            {% else %}
+                <a href="{% url 'login' %}" class="nav-link">
+                    <span>🔐</span>
+                    <span>Login</span>
+                </a>
+                <a href="{% url 'signup' %}" class="nav-link">
+                    <span>📝</span>
+                    <span>Signup</span>
+                </a>
+            {% endif %}
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="topbar">
+            <div>
+                <h2 class="welcome-title">
+                    {% if request.user.is_authenticated %}
+                        Welcome, {{ request.user.username }}
+                    {% else %}
+                        Welcome to BoxApp
+                    {% endif %}
+                </h2>
+                <p class="welcome-subtitle">
+                    {% if request.user.is_authenticated %}
+                        Manage your box orders smoothly
+                    {% else %}
+                        Login or signup to continue
+                    {% endif %}
+                </p>
+            </div>
+
+            {% if request.user.is_authenticated %}
+                <div class="top-actions">
+                    {% if request.user.role != 'admin' %}
+                        <a href="{% url 'cart' %}" class="cart-btn">🧺 Cart</a>
+                    {% endif %}
+                    <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+                </div>
+            {% endif %}
+        </header>
+
+        <section class="page-content">
+            {% block content %}{% endblock %}
+        </section>
+    </main>
+
 </div>
 
 </body>

@@ -1,0 +1,101 @@
+body {
+    background: #f5f7fb;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+.cart-container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+}
+
+.cart-title {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+/* CART BOX */
+.cart-box {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* ITEM */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-info h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.price {
+    color: #666;
+}
+
+/* QUANTITY */
+.item-qty form {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.item-qty input {
+    width: 50px;
+    text-align: center;
+    padding: 5px;
+}
+
+.item-qty button {
+    background: #eee;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.update-btn {
+    background: #007bff;
+    color: white;
+}
+
+/* REMOVE */
+.item-remove a {
+    color: red;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+/* SUMMARY */
+.cart-summary {
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 12px;
+    text-align: right;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.checkout-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #28a745;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+}
+
+/* EMPTY */
+.empty-cart {
+    text-align: center;
+    font-size: 20px;
+    margin-top: 50px;
+}

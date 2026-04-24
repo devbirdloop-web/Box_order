@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">Admin Dashboard</h1>
+        <p class="dashboard-subtitle">Manage products, monitor orders, and control the platform.</p>
+    </div>
+</div>
+
+<div class="stats-grid stats-grid-4">
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-badge">📋</span>
+        </div>
+        <div class="stat-label">Total Products</div>
+        <div class="stat-value">{{ total_products|default:"0" }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-badge">📦</span>
+        </div>
+        <div class="stat-label">Total Orders</div>
+        <div class="stat-value">{{ total_orders|default:"0" }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-badge pending">⏳</span>
+        </div>
+        <div class="stat-label">Pending Orders</div>
+        <div class="stat-value">{{ pending_orders|default:"0" }}</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-top">
+            <span class="stat-badge delivered">✅</span>
+        </div>
+        <div class="stat-label">Delivered Orders</div>
+        <div class="stat-value">{{ delivered_orders|default:"0" }}</div>
+    </div>
+</div>
+
+<div class="section-title">Admin Actions</div>
+
+<div class="action-grid">
+    <a href="{% url 'admin:index' %}" class="action-card">
+        <div class="action-icon">⚙️</div>
+        <div class="action-title">Manage Products</div>
+        <div class="action-text">Add, edit, and delete box products.</div>
+    </a>
+
+    <a href="{% url 'product_list' %}" class="action-card">
+        <div class="action-icon">👁️</div>
+        <div class="action-title">View Products</div>
+        <div class="action-text">See how products appear to users.</div>
+    </a>
+
+    <a href="{% url 'my_orders' %}" class="action-card">
+        <div class="action-icon">📦</div>
+        <div class="action-title">View Orders</div>
+        <div class="action-text">Monitor and manage order activity.</div>
+    </a>
+
+    <a href="{% url 'admin:index' %}" class="action-card">
+        <div class="action-icon">🛠️</div>
+        <div class="action-title">Admin Panel</div>
+        <div class="action-text">Open Django admin for full management.</div>
+    </a>
+</div>
+
+{% endblock %}

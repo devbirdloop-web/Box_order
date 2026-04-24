@@ -1,42 +1,76 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Signup</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup | BoxApp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
 </head>
-<body>
+<body class="login-page">
 
-<div class="auth-container">
+<header class="header">
+    <div class="logo">📦BOX ORDER MANAGEMENT SYSTEM</div>
 
-    <div class="auth-card premium">
-        <h2>Create Account 🚀</h2>
+    <div class="nav">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}" class="active">Signup</a>
+    </div>
+</header>
 
-        <form method="POST">
-            {% csrf_token %}
+<main class="signup-main">
+    <div class="signup-wrapper">
+        <div class="auth-card premium">
+           
+            <h2>Create Account</h2>
+            <p class="subtitle">Create your account and continue</p>
 
-            <input type="text" name="username" placeholder="Username" required>
-            <input type="text" name="full_name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email Address" required>
-            <input type="text" name="mobile" placeholder="Mobile Number" required>
-            <textarea name="address" placeholder="Delivery Address" required></textarea>
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="success-toast">{{ message }}</div>
+                    <script>
+                        setTimeout(function() {
+                            window.location.href = "{% url 'login' %}";
+                        }, 2000);
+                    </script>
+                {% endfor %}
+            {% endif %}
 
-            <input type="password" name="password" placeholder="Password" required>
-            <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+            <form method="POST">
+                {% csrf_token %}
 
-            <button type="submit">Sign Up</button>
-        </form>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="text" name="full_name" placeholder="Full Name" required>
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="text" name="mobile" placeholder="Mobile Number" required>
+                <textarea name="address" placeholder="Delivery Address" required></textarea>
 
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
+                <select name="role" required>
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select>
 
-        <div class="links">
-            <a href="/accounts/login/">Already have account?</a>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+
+                <button type="submit">Sign Up</button>
+            </form>
+
+            {% if error %}
+                <p class="error">{{ error }}</p>
+            {% endif %}
+
+            <div class="links single-link center-link">
+                <a href="{% url 'login' %}">Already have an account?</a>
+            </div>
         </div>
     </div>
+</main>
 
-</div>
+<footer class="footer">
+    <p>© 2026 BoxApp | Smart Box Ordering System</p>
+</footer>
 
 </body>
 </html>

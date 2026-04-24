@@ -1,13 +1,35 @@
+{% extends 'base.html' %}
 
+{% block content %}
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'css/style.css' %}">
-<h2>Available Boxes</h2>
+<h2>📦 Available Boxes</h2>
 
-{% for box in boxes %}
-    <div>
+<div class="product-grid">
+
+    {% for box in boxes %}
+    <div class="product-card">
+
+        <img src="{{ box.image.url }}" alt="{{ box.name }}">
+
         <h3>{{ box.name }}</h3>
-        <p>{{ box.size }}</p>
-        <p>{{ box.price }}</p>
+
+        <p>{{ box.description|truncatewords:10 }}</p>
+
+        <div class="price">₹{{ box.price }}</div>
+
+        <div class="stock">
+            {% if box.stock > 0 %}
+                In Stock
+            {% else %}
+                Out of Stock
+            {% endif %}
+        </div>
+
+        <a href="/orders/add/{{ box.id }}/" class="btn">Add to Cart</a>
+
     </div>
-{% endfor %}
+    {% endfor %}
+
+</div>
+
+{% endblock %}
