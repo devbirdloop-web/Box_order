@@ -6,6 +6,9 @@ from .cart import Cart
 from .models import Order, OrderItem
 
 
+
+
+
 # -------------------------
 # Orders Home
 # -------------------------
@@ -99,6 +102,49 @@ def checkout(request):
 @login_required
 def my_orders(request):
     orders = Order.objects.filter(user=request.user)
+
+    return render(request, 'orders/my_orders.html', {
+        'orders': orders
+    })
+    
+def admin_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('login')
+        if request.user.role != 'admin':
+            return redirect('user_dashboard')
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+
+@login_required
+@admin_required
+def admin_orders(request):
+    orders = Order.objects.select_related('user').prefetch_related('items__product').order_by('-created_at')
+    return render(request, 'orders/admin_orders.html', {'orders': orders})
+
+
+@login_required
+@admin_required
+def update_order_status(request, order_id):
+    order = get_object_or_404(Order, id=order_id)
+
+    if request.method == "POST":
+        status = request.POST.get("status")
+        if status in ['pending', 'processing', 'delivered']:
+            order.status = status
+            order.save()
+
+    return redirect('admin_orders')
+
+@login_required
+def my_orders(request):
+    orders = (
+        Order.objects
+        .filter(user=request.user)
+        .prefetch_related('items__product')
+        .order_by('-created_at')
+    )
 
     return render(request, 'orders/my_orders.html', {
         'orders': orders

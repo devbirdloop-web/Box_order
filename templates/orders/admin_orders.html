@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">View Orders</h1>
+        <p class="dashboard-subtitle">Monitor all user orders and update delivery status.</p>
+    </div>
+</div>
+
+<div class="product-table-card">
+    <table class="product-table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th>Update</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.user.username }}</td>
+
+                <td>
+                    {% for item in order.items.all %}
+                        <div>
+                            {{ item.product.name }} × {{ item.quantity }}
+                        </div>
+                    {% empty %}
+                        No items
+                    {% endfor %}
+                </td>
+
+                <td>₹{{ order.total_price }}</td>
+
+                <td>
+                    <span class="status 
+                        {% if order.status == 'delivered' %}active-status
+                        {% elif order.status == 'processing' %}processing-status
+                        {% else %}pending-status{% endif %}">
+                        {{ order.get_status_display }}
+                    </span>
+                </td>
+
+                <td>{{ order.created_at|date:"d M Y, h:i A" }}</td>
+
+                <td>
+                    <form method="POST" action="{% url 'update_order_status' order.id %}" class="status-form">
+                        {% csrf_token %}
+                        <select name="status">
+                            <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pending</option>
+                            <option value="processing" {% if order.status == 'processing' %}selected{% endif %}>Processing</option>
+                            <option value="delivered" {% if order.status == 'delivered' %}selected{% endif %}>Delivered</option>
+                        </select>
+                        <button type="submit" class="small-btn edit-btn">Save</button>
+                    </form>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="7">No orders found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="dashboard-header">
+    <div>
+        <h1 class="dashboard-title">My Orders</h1>
+        <p class="dashboard-subtitle">View your order history and live status.</p>
+    </div>
+</div>
+
+{% if orders %}
+
+<div class="orders-list">
+
+{% for order in orders %}
+<div class="order-card">
+
+    <div class="order-header">
+        <div>
+            <h3>Order #{{ order.id }}</h3>
+            <p>{{ order.created_at|date:"d M Y, h:i A" }}</p>
+        </div>
+
+        <span class="status 
+            {% if order.status == 'delivered' %}active-status
+            {% elif order.status == 'processing' %}processing-status
+            {% else %}pending-status{% endif %}">
+            {{ order.get_status_display }}
+        </span>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-wrapper">
+        <table class="order-table-real">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Price</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for item in order.items.all %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>₹{{ item.price }}</td>
+                    <td>₹{{ item.price }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="order-total-box">
+        <span>Total Amount</span>
+        <strong>₹{{ order.total_price }}</strong>
+    </div>
+
+</div>
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="empty-state">
+    <h2>No Orders Yet</h2>
+    <p>You have not placed any orders yet.</p>
+    <a href="{% url 'product_list' %}" class="btn">Order Now</a>
+</div>
+
+{% endif %}
+
+{% endblock %}
