@@ -869,3 +869,12 @@ body {
     background: #334155;
     color: #fff;
 }
+
+.forgot-top {
+    color: #facc15; /* yellow highlight */
+    font-weight: 600;
+}
+
+.forgot-top:hover {
+    text-decoration: underline;
+}
